@@ -15,7 +15,7 @@ project ("Graphics")
 # Add source files to this project's executable.
 # Visual Studio and CLion should update this line for you. VS Code will not; for each 
 # .h or .cpp file you add to the project, you must add its path to this command.
-add_executable (Graphics "src/main.cpp"      )
+add_executable (Graphics "src/main.cpp" "include/lines.h" "src/lines.cpp" )
 
 
 # Find and link external libraries, like SFML.

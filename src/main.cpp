@@ -1,31 +1,28 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <array>
-
-/*
-This program is a template for an SFML project using CMake and Vcpkg. 
-You can duplicate the folder containing this project to easily set up a new 
-SFML program. 
-Just delete the "out" folder in the new project , or else you might get CMake errors.
-*/
+#include "lines.h"
 
 void drawPixel(sf::RenderWindow& window, sf::Vector2i position, sf::Color color) {
-	std::array<sf::Vertex, 1> pixel = {
+	sf::Vertex pixel[1] = {
 		sf::Vertex(sf::Vector2f(position.x, position.y), color)
 	};
-	window.draw(pixel.data(), 1, sf::Points);
+	window.draw(pixel, 1, sf::Points);
 }
 
 int main() {
 	sf::RenderWindow window{ sf::VideoMode{800, 800}, "SFML Demo" };
 	sf::Clock c;
 	auto last = c.getElapsedTime();
+	uint32_t mx = 400, my = 300;
 
 	while (window.isOpen()) {
 		sf::Event ev;
 		while (window.pollEvent(ev)) {
-			if (ev.type == sf::Event::Closed) {
+			if (ev.type == sf::Event::Closed)
 				window.close();
+			else if (ev.type == sf::Event::MouseMoved) {
+				mx = ev.mouseMove.x;
+				my = ev.mouseMove.y;
 			}
 		}
 		window.clear();
@@ -34,15 +31,8 @@ int main() {
 		auto diff = now - last;
 		last = now;
 		std::cout << 1 / diff.asSeconds() << " FPS " << std::endl;
-
-		/*
-		* DRAWING GOES HERE.
-		*/
-		for (auto x = 0; x < 500; x++) {
-			auto y = static_cast<int32_t>(2.0 / 3.0 * x + 40);
-			drawPixel(window, sf::Vector2i(x, y), sf::Color::White);
-		}
-
+		
+		drawLineNaive(window, sf::Vector2i(100, 300), sf::Vector2i(700, 613), sf::Color::Red);
 
 		window.display();
 	}
