@@ -3,28 +3,24 @@
 #include "lines.h"
 
 void drawPixel(sf::RenderWindow& window, sf::Vector2i position, sf::Color color) {
-	sf::Vertex pixel[1] = {
+	std::array<sf::Vertex, 1> pixel = {
 		sf::Vertex(sf::Vector2f(position.x, position.y), color)
 	};
-	window.draw(pixel, 1, sf::Points);
+	window.draw(pixel.data(), 1, sf::PrimitiveType::Points);
 }
 
 int main() {
-	sf::RenderWindow window{ sf::VideoMode{800, 800}, "SFML Demo" };
+	sf::RenderWindow window{ sf::VideoMode::getFullscreenModes().at(0), "SFML Demo" };
 	sf::Clock c;
 	auto last = c.getElapsedTime();
-	uint32_t mx = 400, my = 300;
 
 	while (window.isOpen()) {
-		sf::Event ev;
-		while (window.pollEvent(ev)) {
-			if (ev.type == sf::Event::Closed)
+		while (const std::optional event = window.pollEvent()) {
+			if (event->is<sf::Event::Closed>()) {
 				window.close();
-			else if (ev.type == sf::Event::MouseMoved) {
-				mx = ev.mouseMove.x;
-				my = ev.mouseMove.y;
 			}
 		}
+
 		window.clear();
 
 		auto now = c.getElapsedTime();

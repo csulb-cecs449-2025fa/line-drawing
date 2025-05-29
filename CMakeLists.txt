@@ -20,8 +20,8 @@ add_executable (Graphics "src/main.cpp" "include/lines.h" "src/lines.cpp" )
 
 # Find and link external libraries, like SFML.
 # This only works if Vcpkg has been configured correctly.
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
-target_link_libraries(Graphics PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
+find_package(SFML COMPONENTS System Window Graphics CONFIG REQUIRED)
+target_link_libraries(Graphics PRIVATE SFML::System SFML::Window SFML::Graphics)
 
 # Set up our own "/include" folder as the root for #include "...." statements.
 target_include_directories(Graphics PUBLIC "./include")
