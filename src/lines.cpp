@@ -13,11 +13,11 @@ void drawLineNaive(sf::RenderWindow& window, sf::Vector2i start, sf::Vector2i en
 		std::swap(start, end);
 	}
 
-	double m = static_cast<double>(end.y - start.y) / (end.x - start.x);
-	double y = start.y;
-	for (auto x = start.x; x < end.x + 1; x++) {
-		auto yCoord = static_cast<int32_t>(std::round(y));
-		drawPixel(window, sf::Vector2i(x, yCoord), color);
+	double m{ static_cast<double>(end.y - start.y) / (end.x - start.x) };
+	double y{ start.y };
+	for (auto x{ start.x }; x < end.x + 1; ++x) {
+		auto yCoord{ static_cast<int32_t>(std::round(y)) };
+		drawPixel(window, sf::Vector2i{ x, yCoord }, color);
 		y += m;
 	}
 }
