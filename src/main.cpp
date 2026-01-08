@@ -1,8 +1,9 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "lines.h"
+#include <glm/ext.hpp>
 
-void drawPixel(sf::RenderWindow& window, sf::Vector2i position, sf::Color color) {
+void drawPixel(sf::RenderWindow& window, glm::ivec2 position, sf::Color color) {
 	float pX{ static_cast<float>(position.x) };
 	float pY{ static_cast<float>(position.y) };
 
@@ -32,7 +33,7 @@ int main() {
 		last = now;
 		std::cout << 1 / diff.asSeconds() << " FPS " << std::endl;
 		
-		drawLineNaive(window, sf::Vector2i{ 100, 300 }, sf::Vector2i{ 700, 613 }, sf::Color::Red);
+		drawLineNaive(window, glm::ivec2{ 100, 300 }, glm::ivec2{ 700, 613 }, sf::Color::Red);
 
 		window.display();
 	}
